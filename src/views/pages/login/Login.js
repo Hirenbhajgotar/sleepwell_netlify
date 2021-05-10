@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
+import { setUserSession } from '../../../Util/Comman';
 import {
     CButton,
     CCard,
@@ -14,9 +15,45 @@ import {
     CInputGroupText,
     CRow
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+import CIcon from '@coreui/icons-react';
+const axios = require('axios').default;
 
-const Login = () => {
+
+const Login = (props) => {
+    let history = useHistory();
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit = (e) => {
+        // props.history.push('/dashboard');
+        e.preventDefault();
+        setError(null);
+        setLoading(true);
+        // setError("Something went wrong!");
+        axios.post('http://localhost:8000/user/login', {
+            email: email,
+            password: password
+        })
+        .then(response => {
+            setLoading(false);
+            setUserSession(response.data.token, response.data.user);
+            history.push('/dashboard')
+            // console.log(response);
+            // this.props
+        })
+        .catch(err => {
+            setLoading(false);
+            if (err.response.data.errorMessage) {
+                setError(err.response.data.errorMessage);
+            } else {
+                setError("Something went wrong!");
+            }
+            // console.log(err.response.data);
+        });
+    }
+
     return (
         <div className="c-app c-default-layout flex-row align-items-center">
             <CContainer>
@@ -25,16 +62,23 @@ const Login = () => {
                         <CCardGroup>
                             <CCard className="p-4">
                                 <CCardBody>
-                                    <CForm>
+                                    <CForm onSubmit={handleSubmit}>
                                         <h1>Login</h1>
                                         <p className="text-muted">Sign In to your account</p>
+                                        <br />
+                                        {
+                                            error &&
+                                            <p className="text-danger">
+                                                {error}
+                                            </p>
+                                        }
                                         <CInputGroup className="mb-3">
                                             <CInputGroupPrepend>
                                                 <CInputGroupText>
                                                     <CIcon name="cil-user" />
                                                 </CInputGroupText>
                                             </CInputGroupPrepend>
-                                            <CInput type="text" placeholder="Username" autoComplete="username" />
+                                            <CInput type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" autoComplete="email" />
                                         </CInputGroup>
                                         <CInputGroup className="mb-4">
                                             <CInputGroupPrepend>
@@ -42,11 +86,11 @@ const Login = () => {
                                                     <CIcon name="cil-lock-locked" />
                                                 </CInputGroupText>
                                             </CInputGroupPrepend>
-                                            <CInput type="password" placeholder="Password" autoComplete="current-password" />
+                                            <CInput type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" />
                                         </CInputGroup>
                                         <CRow>
                                             <CCol xs="6">
-                                                <CButton color="primary" className="px-4">Login</CButton>
+                                                <CButton type="submit" color="primary" disabled={loading ? true : false} className="px-4">{loading ? 'Loading...' : 'Login'}</CButton>
                                             </CCol>
                                             {/* <CCol xs="6" className="text-right">
                                                 <CButton color="link" className="px-0">Forgot password?</CButton>

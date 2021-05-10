@@ -39,43 +39,43 @@ const Users = () => {
 
   return (
     <CRow>
-      <CCol xl={6}>
+      <CCol xl={12}>
         <CCard>
           <CCardHeader>
             Users
-            <small className="text-muted"> example</small>
+                      <small className="text-muted"> example</small>
           </CCardHeader>
           <CCardBody>
-          <CDataTable
-            items={usersData}
-            fields={[
-              { key: 'name', _classes: 'font-weight-bold' },
-              'registered', 'role', 'status'
-            ]}
-            hover
-            striped
-            itemsPerPage={5}
-            activePage={page}
-            clickableRows
-            onRowClick={(item) => history.push(`/users/${item.id}`)}
-            scopedSlots = {{
-              'status':
-                (item)=>(
-                  <td>
-                    <CBadge color={getBadge(item.status)}>
-                      {item.status}
-                    </CBadge>
-                  </td>
-                )
-            }}
-          />
-          <CPagination
-            activePage={page}
-            onActivePageChange={pageChange}
-            pages={5}
-            doubleArrows={false} 
-            align="center"
-          />
+            <CDataTable
+              items={usersData}
+              fields={[
+                { key: 'name', _classes: 'font-weight-bold' },
+                'registered', 'role', 'status'
+              ]}
+              hover
+              striped
+              itemsPerPage={5}
+              activePage={page}
+              clickableRows
+              onRowClick={(item) => history.push(`/users/${item.id}`)}
+              scopedSlots={{
+                'status':
+                  (item) => (
+                    <td>
+                      <CBadge color={getBadge(item.status)}>
+                        {item.status}
+                      </CBadge>
+                    </td>
+                  )
+              }}
+            />
+            <CPagination
+              activePage={page}
+              onActivePageChange={pageChange}
+              pages={5}
+              doubleArrows={false}
+              align="center"
+            />
           </CCardBody>
         </CCard>
       </CCol>
