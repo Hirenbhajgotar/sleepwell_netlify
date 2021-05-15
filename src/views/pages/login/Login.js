@@ -9,6 +9,8 @@ import {
     CCol,
     CContainer,
     CForm,
+    CFormGroup,
+    CFormText,
     CInput,
     CInputGroup,
     CInputGroupPrepend,
@@ -16,6 +18,7 @@ import {
     CRow
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react';
+import { useForm, Controller } from 'react-hook-form';
 const axios = require('axios').default;
 
 
@@ -26,12 +29,14 @@ const Login = (props) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
-        // props.history.push('/dashboard');
-        e.preventDefault();
+    const { control, handleSubmit, formState: { errors }, register } = useForm({ mode: 'all' });
+
+
+    const onHandlerSubmit = (value) => {
+        const {email, password} = value;
+        // console.log("args", value);
         setError(null);
         setLoading(true);
-        // setError("Something went wrong!");
         axios.post('http://localhost:8000/user/login', {
             email: email,
             password: password
@@ -40,8 +45,6 @@ const Login = (props) => {
             setLoading(false);
             setUserSession(response.data.token, response.data.user);
             history.push('/dashboard')
-            // console.log(response);
-            // this.props
         })
         .catch(err => {
             setLoading(false);
@@ -50,10 +53,9 @@ const Login = (props) => {
             } else {
                 setError("Something went wrong!");
             }
-            // console.log(err.response.data);
         });
     }
-
+    
     return (
         <div className="c-app c-default-layout flex-row align-items-center">
             <CContainer>
@@ -62,7 +64,7 @@ const Login = (props) => {
                         <CCardGroup>
                             <CCard className="p-4">
                                 <CCardBody>
-                                    <CForm onSubmit={handleSubmit}>
+                                    <CForm onSubmit={handleSubmit(onHandlerSubmit)}>
                                         <h1>Login</h1>
                                         <p className="text-muted">Sign In to your account</p>
                                         <br />
@@ -72,46 +74,65 @@ const Login = (props) => {
                                                 {error}
                                             </p>
                                         }
-                                        <CInputGroup className="mb-3">
-                                            <CInputGroupPrepend>
-                                                <CInputGroupText>
-                                                    <CIcon name="cil-user" />
-                                                </CInputGroupText>
-                                            </CInputGroupPrepend>
-                                            <CInput type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" autoComplete="email" />
-                                        </CInputGroup>
-                                        <CInputGroup className="mb-4">
-                                            
-                                            <CInputGroupPrepend>
-                                                <CInputGroupText>
-                                                    <CIcon name="cil-lock-locked" />
-                                                </CInputGroupText>
-                                            </CInputGroupPrepend>
-                                            <CInput type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" autoComplete="current-password" />
-                                        </CInputGroup>
+                                        <CFormGroup>
+                                            <CInputGroup className="mb-3">
+                                                <CInputGroupPrepend>
+                                                    <CInputGroupText>
+                                                        <CIcon name="cil-user" />
+                                                    </CInputGroupText>
+                                                </CInputGroupPrepend>
+                                                {/* <CInput type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" autoComplete="email" /> */}
+                                                <Controller
+                                                    name="email"
+                                                    control={control}
+                                                    defaultValue={email}
+                                                    rules={{
+                                                        required: {
+                                                            value: true,
+                                                            message: "Email is required"
+                                                        },
+                                                        pattern: {
+                                                            value: /^\w+[\w-.]*@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/i,
+                                                            message: "invalid email address"
+                                                        }
+                                                    }}
+                                                    render={({ field }) => <CInput {...register("email")} type="email"  placeholder="Email" autoComplete="email" />}
+                                                />
+                                            </CInputGroup>
+                                            <CFormText className="help-block text-danger" color="red">{errors.email && errors.email.message}</CFormText>
+                                        </CFormGroup>
+                                        <CFormGroup>
+                                            <CInputGroup className="mb-3">
+                                                <CInputGroupPrepend>
+                                                    <CInputGroupText>
+                                                        <CIcon name="cil-lock-locked" />
+                                                    </CInputGroupText>
+                                                </CInputGroupPrepend>
+                                                {/* <CInput type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email" autoComplete="email" /> */}
+                                                <Controller
+                                                    name="password"
+                                                    control={control}
+                                                    defaultValue={password}
+                                                    rules={{
+                                                        required: {
+                                                            value: true,
+                                                            message: "Password is required"
+                                                        }
+                                                    }}
+                                                    render={({ field }) => <CInput {...register("password")} type="password"  placeholder="Password" autoComplete="password" />}
+                                                />
+                                            </CInputGroup>
+                                            <CFormText className="help-block text-danger" color="red">{errors.password && errors.password.message}</CFormText>
+                                        </CFormGroup>
+                                        
                                         <CRow>
                                             <CCol xs="6">
                                                 <CButton type="submit" color="primary" disabled={loading ? true : false} className="px-4">{loading ? 'Loading...' : 'Login'}</CButton>
                                             </CCol>
-                                            {/* <CCol xs="6" className="text-right">
-                                                <CButton color="link" className="px-0">Forgot password?</CButton>
-                                            </CCol> */}
                                         </CRow>
                                     </CForm>
                                 </CCardBody>
                             </CCard>
-                            {/* <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
-                                <CCardBody className="text-center">
-                                    <div>
-                                        <h2>Sign up</h2>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                                            labore et dolore magna aliqua.</p>
-                                        <Link to="/register">
-                                            <CButton color="primary" className="mt-3" active tabIndex={-1}>Register Now!</CButton>
-                                        </Link>
-                                    </div>
-                                </CCardBody>
-                            </CCard> */}
                         </CCardGroup>
                     </CCol>
                 </CRow>

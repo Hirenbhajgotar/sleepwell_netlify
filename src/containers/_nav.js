@@ -248,30 +248,7 @@ const _nav = [
     //   name: 'Add Product',
     //   to: '/500',
     // },
-    {
-        _tag: 'CSidebarNavItem',
-        name: 'Users',
-        to: '/users',
-        icon: 'cil-user',
-    },
-    {
-        _tag: 'CSidebarNavItem',
-        name: 'Categories',
-        to: '/dashboard',
-        icon: 'cil-user',
-    },
-    {
-        _tag: 'CSidebarNavItem',
-        name: 'Sub Categories',
-        to: '/dashboard',
-        icon: 'cil-user',
-    },
-    {
-        _tag: 'CSidebarNavItem',
-        name: 'Products',
-        to: '/products',
-        icon: 'cil-user',
-    },
+   
     // {
     //   _tag: 'CSidebarNavItem',
     //   name: 'Disabled',
@@ -325,6 +302,41 @@ const _nav = [
     //   _tag: 'CSidebarNavDivider',
     //   className: 'm-2'
     // }
+
+
+
+    // ----------------------------
+
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Users',
+        to: '/users',
+        icon: 'cil-user',
+    },
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Categories',
+        to: '/categories',
+        icon: 'cil-user',
+    },
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Sub Categories',
+        to: '/dashboard',
+        icon: 'cil-user',
+    },
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Products',
+        to: '/products',
+        icon: 'cil-user',
+    },
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Products',
+        to: '/add-product',
+        icon: 'cil-user',
+    },
 ]
 
 export default _nav
