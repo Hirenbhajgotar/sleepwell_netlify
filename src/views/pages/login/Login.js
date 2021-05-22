@@ -96,7 +96,7 @@ const Login = (props) => {
                                                             message: "invalid email address"
                                                         }
                                                     }}
-                                                    render={({ field }) => <CInput {...register("email")} type="email"  placeholder="Email" autoComplete="email" />}
+                                                    render={({ field }) => <CInput {...field} type="email"  placeholder="Email" autoComplete="email" />}
                                                 />
                                             </CInputGroup>
                                             <CFormText className="help-block text-danger" color="red">{errors.email && errors.email.message}</CFormText>
@@ -119,7 +119,7 @@ const Login = (props) => {
                                                             message: "Password is required"
                                                         }
                                                     }}
-                                                    render={({ field }) => <CInput {...register("password")} type="password"  placeholder="Password" autoComplete="password" />}
+                                                    render={({ field }) => <CInput {...field} type="password"  placeholder="Password" autoComplete="password" />}
                                                 />
                                             </CInputGroup>
                                             <CFormText className="help-block text-danger" color="red">{errors.password && errors.password.message}</CFormText>

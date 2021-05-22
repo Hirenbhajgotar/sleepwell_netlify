@@ -31,7 +31,49 @@ const Categories = () => {
                         {/* <CDataTable>
 
                         </CDataTable> */}
-                        category
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Short Order</th>
+                                    <th scope="col">Create at</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>Man</td>
+                                    <td>1</td>
+                                    <td>{new Date().toLocaleString() + ''}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-warning">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>Woman</td>
+                                    <td>2</td>
+                                    <td>{new Date().toLocaleString() + ''}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-warning">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>Child</td>
+                                    <td>3</td>
+                                    <td>{new Date().toLocaleString() + ''}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-outline-warning">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </CCardBody>
                 </CCard>
             </CCol>

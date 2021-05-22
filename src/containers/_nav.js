@@ -6,7 +6,8 @@ const _nav = [
         _tag: 'CSidebarNavItem',
         name: 'Dashboard',
         to: '/dashboard',
-        icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
+        // icon: <CIcon name="cil-speedometer" customClasses="c-sidebar-nav-icon" />,
+        icon: <i class="ri-dashboard-2-fill mr-3 ri-lg"></i>,
         badge: {
             color: 'info',
             // text: 'NEW',
@@ -311,32 +312,59 @@ const _nav = [
         _tag: 'CSidebarNavItem',
         name: 'Users',
         to: '/users',
-        icon: 'cil-user',
+        // icon: 'cil-user',
+        icon: <i class="ri-user-fill mr-3 ri-lg"></i>,
+    },
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Banner',
+        to: '/banners',
+        // icon: 'cil-casino',
+        icon: <i class="ri-image-2-fill mr-3 ri-lg"></i>,
     },
     {
         _tag: 'CSidebarNavItem',
         name: 'Categories',
         to: '/categories',
-        icon: 'cil-user',
+        icon: <i class="ri-shopping-bag-2-fill mr-3 ri-lg"></i>,
     },
     {
         _tag: 'CSidebarNavItem',
         name: 'Sub Categories',
-        to: '/dashboard',
-        icon: 'cil-user',
+        to: '/sub-categories',
+        icon: <i class="ri-shopping-bag-2-fill mr-3 ri-lg"></i>,
     },
     {
         _tag: 'CSidebarNavItem',
         name: 'Products',
         to: '/products',
-        icon: 'cil-user',
+        icon: <i class="ri-medal-fill mr-3 ri-lg"></i>,
     },
     {
         _tag: 'CSidebarNavItem',
-        name: 'Products',
-        to: '/add-product',
-        icon: 'cil-user',
+        name: 'Permision',
+        to: '/permision',
+        icon: <i class="ri-rotate-lock-fill mr-3 ri-lg"></i>,
     },
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Newsletter',
+        to: '/newsletter',
+        icon: <i class="ri-mail-volume-fill mr-3 ri-lg"></i>,
+    },
+    {
+        _tag: 'CSidebarNavItem',
+        name: 'Feedback',
+        to: '/feedback',
+        icon: <i class="ri-feedback-fill mr-3 ri-lg"></i>,
+    },
+    // {
+    //     _tag: 'CSidebarNavItem',
+    //     name: 'Products',
+    //     to: '/add-product',
+    //     icon: 'cil-user',
+    // },
+    
 ]
 
 export default _nav
